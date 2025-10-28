@@ -3,12 +3,17 @@
     <!-- 顶部Logo区域 -->
     <div class="sidebar-header">
       <div class="logo-container">
-        <div class="logo">小哲AI</div>
+        <div class="logo-image">
+          <router-link to="/" class="logo-link">
+            <a-image :preview="false" src="/xiaozhe-ai-logo.svg" alt="小哲AI Logo" />
+          </router-link>
+        </div>
       </div>
       <div class="header-actions">
-        <a-button type="text" class="action-btn">
+        <a-button type="text" class="action-btn" @click="toggleSidebar">
           <template #icon>
-            <IconFile/>
+            <IconMenuFold v-if="isCollapsed" />
+            <IconMenuUnfold v-else />
           </template>
         </a-button>
       </div>
@@ -18,7 +23,7 @@
     <div class="nav-menu">
       <div class="nav-item active">
         <div class="nav-icon">
-          <IconPlus/>
+          <IconPlus />
         </div>
         <span class="nav-text">新建会话</span>
         <div class="nav-shortcut">Ctrl K</div>
@@ -26,28 +31,28 @@
 
       <div class="nav-item">
         <div class="nav-icon">
-          <IconRefresh/>
+          <IconRefresh />
         </div>
         <span class="nav-text">小哲+</span>
       </div>
 
       <div class="nav-item">
         <div class="nav-icon ppt-icon">
-          <IconFile/>
+          <IconFile />
         </div>
         <span class="nav-text">PPT 助手</span>
       </div>
 
       <div class="nav-item">
         <div class="nav-icon">
-          <IconClockCircle/>
+          <IconClockCircle />
         </div>
         <span class="nav-text">历史会话</span>
       </div>
 
       <div class="nav-item">
         <div class="nav-icon">
-          <IconApps/>
+          <IconApps />
         </div>
         <span class="nav-text">查看全部</span>
       </div>
@@ -55,27 +60,50 @@
 
     <!-- 底部用户信息 -->
     <div class="user-section">
-      <div class="user-info">
-        <a-avatar class="user-avatar" :style="{ backgroundColor: '#f7ba2e' }">
-          <IconUser/>
-        </a-avatar>
-        <span class="username">用户</span>
-        <IconDown class="dropdown-icon"/>
+      <div class="user-info" @click="handleLoginClick">
+        <div class="user-profile">
+          <a-avatar class="user-avatar" :style="{ backgroundColor: '#6b7280' }">
+            <IconUser />
+          </a-avatar>
+          <span class="username">登录</span>
+        </div>
+        <div class="dropdown-action">
+          <IconDown class="dropdown-icon" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import {
+  IconApps,
+  IconClockCircle,
+  IconDown,
+  IconFile,
+  IconMenuFold,
+  IconMenuUnfold,
   IconPlus,
   IconRefresh,
-  IconFile,
-  IconClockCircle,
-  IconApps,
-  IconUser,
-  IconDown
+  IconUser
 } from '@arco-design/web-vue/es/icon'
+
+// 定义事件
+const emit = defineEmits(['open-login'])
+
+// 定义响应式变量
+const isCollapsed = ref(false)
+
+// 切换侧边栏折叠状态
+const toggleSidebar = () => {
+  isCollapsed.value = !isCollapsed.value
+}
+
+// 处理登录点击
+const handleLoginClick = () => {
+  emit('open-login')
+}
 </script>
 
 <style scoped>
@@ -101,17 +129,6 @@ import {
   align-items: center;
 }
 
-.logo {
-  color: #fff;
-  width: 50px;
-  height: 32px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 16px;
-}
 
 .header-actions {
   display: flex;
@@ -188,27 +205,54 @@ import {
 .user-info {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   cursor: pointer;
-  padding: 8px;
+  padding: 10px 12px;
   border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .user-info:hover {
   background: #404040;
 }
 
+.user-profile {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
 .user-avatar {
   margin-right: 12px;
+  width: 32px;
+  height: 32px;
 }
 
 .username {
-  flex: 1;
   font-size: 14px;
-  color: #fff;
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.dropdown-action {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.dropdown-action:hover {
+  background: #4b5563;
 }
 
 .dropdown-icon {
-  color: #ccc;
-  font-size: 12px;
+  color: #9ca3af;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.user-info:hover .dropdown-icon {
+  transform: rotate(180deg);
 }
 </style>

@@ -1,0 +1,81 @@
+GET http://localhost:8080/api/v1/user/listUser
+User-Agent: IntelliJ HTTP Client/GoLand 2025.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-28T231051.200.json
+
+###
+
+GET http://localhost:8080/api/v1/listUser
+User-Agent: IntelliJ HTTP Client/GoLand 2025.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-28T231042.404.txt
+
+###
+
+GET http://localhost:8080/listUser
+User-Agent: IntelliJ HTTP Client/GoLand 2025.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-28T231028.404.txt
+
+###
+
+GET http://localhost:8080/api/v1/health
+User-Agent: IntelliJ HTTP Client/GoLand 2025.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-28T230312.200.json
+
+###
+
+GET http://localhost:8080/api/v1/health
+User-Agent: IntelliJ HTTP Client/GoLand 2025.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-28T225655.200.json
+
+###
+
+GET http://localhost:8080/health
+User-Agent: IntelliJ HTTP Client/GoLand 2025.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-28T225635.404.txt
+
+###
+
+GET http://localhost:8080/health
+User-Agent: IntelliJ HTTP Client/GoLand 2025.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-28T225445.200.json
+
+###
+
+GET http://localhost:8080/health
+User-Agent: IntelliJ HTTP Client/GoLand 2025.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-28T225341.200.json
+
+###
+
+GET http://localhost:8080/health
+User-Agent: IntelliJ HTTP Client/GoLand 2025.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-28T225303.200.json
+
+###
+

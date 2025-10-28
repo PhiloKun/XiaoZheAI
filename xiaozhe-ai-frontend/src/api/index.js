@@ -8,11 +8,8 @@ const api=axios.create({
 const GetUser=function (){
     api.get('/user/getUserInfo').then(
         (res)=>{
-            console.log(res)
-         }
+            console.log(res.data)
+        }
     )
 }
-
-export default {
-    GetUser
-}
+GetUser ()
