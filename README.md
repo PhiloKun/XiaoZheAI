@@ -2,7 +2,7 @@
 
 ### 技术栈
 
-前端： vue + Axios
+前端： Vue + Axios
 
-后端：golang+ gin +gorm
+后端：Golang+ Gin +Gorm
 
