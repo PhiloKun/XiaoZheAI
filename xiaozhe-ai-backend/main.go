@@ -1,9 +1,8 @@
 package main
 
-import (
-	"xiaozhe-ai-backend/router"
-)
+import "xiaozhe-ai-backend/cmd"
 
 func main() {
-	router.Initialize()
+	defer cmd.Clean()
+	cmd.Start()
 }

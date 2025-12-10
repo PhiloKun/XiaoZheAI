@@ -1,16 +1,15 @@
-package configs
+package config
 
 import (
+	"fmt"
 	"log"
-	"os"
-	"path/filepath"
 
 	"github.com/spf13/viper"
 )
 
 type ServerConfig struct {
-	Port string `mapstructure:"port"`
 	Host string `mapstructure:"host"`
+	Port string `mapstructure:"port"`
 }
 
 type DatabaseConfig struct {
@@ -34,34 +33,63 @@ type Config struct {
 	Redis    RedisConfig    `mapstructure:"redis"`
 }
 
-var AppConfig Config
+var AppConfig *Config
 
-// InitAppConfig 获取配置实例
-func InitAppConfig() *Config {
-	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
+func InitConfig() {
+	viper.SetConfigName("application")
+	viper.SetConfigType("yml")
+	viper.AddConfigPath("./config/")
+	viper.AddConfigPath(".")
 
-	// 获取当前工作目录
-	currentDir, err := os.Getwd()
-	if err != nil {
-		log.Fatalf("获取当前工作目录失败: %v", err)
-	}
+	// Enable environment variable override
+	viper.AutomaticEnv()
+	viper.SetEnvPrefix("XIAOZHE")
 
-	// 添加多个可能的配置文件路径
-	viper.AddConfigPath(currentDir)
-	viper.AddConfigPath(filepath.Join(currentDir, "configs"))
-	viper.AddConfigPath("../configs")
-	viper.AddConfigPath("./configs")
-
-	// 读取配置文件
+	// Read config file
 	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("读取配置文件失败: %v", err)
+		panic(fmt.Sprintf("Failed to read config file: %s", err.Error()))
 	}
 
-	// 解析到结构体
-	if err := viper.Unmarshal(&AppConfig); err != nil {
-		log.Fatalf("解析配置文件失败: %v", err)
+	log.Printf("Using config file: %s", viper.ConfigFileUsed())
+
+	// Unmarshal to struct
+	AppConfig = &Config{}
+	if err := viper.Unmarshal(AppConfig); err != nil {
+		panic(fmt.Sprintf("Failed to unmarshal config: %s", err.Error()))
 	}
 
-	return &AppConfig
+	// Validate required fields
+	if err := validateConfig(); err != nil {
+		panic(fmt.Sprintf("Config validation failed: %s", err.Error()))
+	}
+
+	log.Println("Configuration loaded successfully")
+}
+
+func validateConfig() error {
+	if AppConfig.Server.Port == "" {
+		return fmt.Errorf("server.port is required")
+	}
+	if AppConfig.Database.Host == "" {
+		return fmt.Errorf("database.host is required")
+	}
+	if AppConfig.Database.Database == "" {
+		return fmt.Errorf("database.database is required")
+	}
+	return nil
+}
+
+// Helper functions for easy access
+func GetServerAddress() string {
+	return fmt.Sprintf("%s:%s", AppConfig.Server.Host, AppConfig.Server.Port)
+}
+
+func GetDatabaseDSN() string {
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		AppConfig.Database.Username,
+		AppConfig.Database.Password,
+		AppConfig.Database.Host,
+		AppConfig.Database.Port,
+		AppConfig.Database.Database,
+	)
 }
