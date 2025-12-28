@@ -2,7 +2,7 @@ package handler
 
 import "github.com/gin-gonic/gin"
 
-func AddUser(ctx *gin.Context) {
+func UserRegister(ctx *gin.Context) {
 	ctx.JSON(200, gin.H{
 		"message": "AddUser",
 	})

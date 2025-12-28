@@ -1,6 +1,6 @@
 package main
 
-import "xiaozhe-ai-backend/cmd"
+import "github.com/philokun/xiaozhe-ai-backend/cmd"
 
 func main() {
 	defer cmd.Clean()

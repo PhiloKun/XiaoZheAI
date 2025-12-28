@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"xiaozhe-ai-backend/config"
-	"xiaozhe-ai-backend/db"
-	"xiaozhe-ai-backend/router"
+	"github.com/philokun/xiaozhe-ai-backend/config"
+	"github.com/philokun/xiaozhe-ai-backend/db"
+	"github.com/philokun/xiaozhe-ai-backend/router"
 )
 
 func Start() {

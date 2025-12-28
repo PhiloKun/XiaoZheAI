@@ -1,12 +1,13 @@
 package router
 
 import (
-	"xiaozhe-ai-backend/handler"
+	"github.com/philokun/xiaozhe-ai-backend/handler"
 
 	"github.com/gin-gonic/gin"
 )
 
 func InitRoutes(router *gin.Engine) {
+
 	v1 := router.Group("/api/v1")
 	{
 		v1.GET("/health", handler.HealthCheck)
@@ -14,9 +15,10 @@ func InitRoutes(router *gin.Engine) {
 
 	user := router.Group("/api/v1/user")
 	{
-		user.POST("/addUser", handler.AddUser)
+		user.POST("/userRegister", handler.UserRegister)
 		user.GET("/listUser", handler.ListUser)
 		user.PUT("/updateUser", handler.UpdateUser)
 		user.DELETE("/deleteUser", handler.DeleteUser)
 	}
+
 }

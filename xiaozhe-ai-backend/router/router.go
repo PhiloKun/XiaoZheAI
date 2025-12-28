@@ -1,7 +1,7 @@
 package router
 
 import (
-	"xiaozhe-ai-backend/config"
+	"github.com/philokun/xiaozhe-ai-backend/config"
 
 	"github.com/gin-gonic/gin"
 )
